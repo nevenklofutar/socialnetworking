@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using EmailService;
+using Entities.Configuration;
 using Entities.DTOs;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Options;
 using NETCore.MailKit.Core;
 using Web.Api.ActionFilters;
 
@@ -25,15 +27,17 @@ namespace Web.Api.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IAuthenticationManager _authManager;
         private readonly IEmailSender _emailSender;
+        private readonly FrontendConfiguration _frontendConfiguration;
 
         public AuthenticationController(ILoggerManager logger, IMapper mapper, UserManager<User> userManager, 
-            IAuthenticationManager authManager, IEmailSender emailSender)
+            IAuthenticationManager authManager, IEmailSender emailSender, FrontendConfiguration frontendConfiguration)
         {
             _logger = logger;
             _mapper = mapper;
             _userManager = userManager;
             _authManager = authManager;
             _emailSender = emailSender;
+            _frontendConfiguration = frontendConfiguration;
         }
 
         [HttpPost("register")]
@@ -98,7 +102,9 @@ namespace Web.Api.Controllers
                 return Ok();
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            RedirectResult redirectResult = new RedirectResult($"https://myangularurlneven.com/authentication/forgotpassword?email={user.Email}&token={token}");
+
+            RedirectResult redirectResult = new RedirectResult($"{_frontendConfiguration.BaseUrl}{_frontendConfiguration.AuthenticationControllerName}" +
+                $"{_frontendConfiguration.ForgotPasswordActionName}?email={user.Email}&token={token}");
 
             var message = new Message(new string[] { user.Email }, "Reset password token", redirectResult.Url);
             _emailSender.SendEmail(message);
