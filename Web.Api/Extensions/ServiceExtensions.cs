@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using EmailService;
 using Entities;
+using Entities.Configuration;
 using Entities.Models;
 using LoggerService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -98,6 +99,13 @@ namespace Web.Api.Extensions
             var emailConfig = configuration.GetSection("EmailConfiguration")
                 .Get<EmailConfiguration>();
             services.AddSingleton(emailConfig);
+        }
+
+        public static void ConfigureFrontend(this IServiceCollection services, IConfiguration configuration)
+        {
+            var frontendConfiguration = configuration.GetSection("Frontend")
+                .Get<FrontendConfiguration>();
+            services.AddSingleton(frontendConfiguration);
         }
     }
 }

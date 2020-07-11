@@ -5806,3 +5806,115 @@
 2020-07-10 18:30:14.7872 Debug Closed target 'File Target[logfile]'.
 2020-07-10 18:30:14.7997 Debug Finished closing logging configuration.
 2020-07-10 18:30:14.7997 Info Logger has been shut down.
+2020-07-10 22:31:57.0222 Debug ScanAssembly('NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-07-10 22:31:57.0976 Debug Found assembly location directory: 'E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1' (NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c)
+2020-07-10 22:31:57.0976 Debug Search for auto loading files in location: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1
+2020-07-10 22:31:57.0976 Debug Start auto loading, location: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1
+2020-07-10 22:31:57.0976 Info Auto loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-07-10 22:31:57.0976 Info Loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-07-10 22:31:57.1183 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.6.4.1366. Product version: 1.6.4. GlobalAssemblyCache: False
+2020-07-10 22:31:57.1183 Debug ScanAssembly('NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-07-10 22:31:57.1183 Info Auto loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2020-07-10 22:31:57.1183 Debug Auto loading done
+2020-07-10 22:31:57.1183 Info Message Template Auto Format enabled
+2020-07-10 22:31:57.1417 Debug Setting 'NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.uppercase' to 'true'
+2020-07-10 22:31:57.1500 Debug Setting 'NLog.Targets.FileTarget.name' to 'logfile'
+2020-07-10 22:31:57.1500 Debug Setting 'NLog.Targets.FileTarget.fileName' to 'E:\Projects\SocialNetworkingApp\Web.Api\logs\${shortdate}_logfile.txt'
+2020-07-10 22:31:57.1500 Debug Setting 'NLog.Targets.FileTarget.layout' to '${longdate}	${level:uppercase=true}	${message}'
+2020-07-10 22:31:57.1500 Debug Setting 'NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.uppercase' to 'true'
+2020-07-10 22:31:57.1500 Info Adding target FileTarget(Name=logfile)
+2020-07-10 22:31:57.1500 Debug Registered target logfile: NLog.Targets.FileTarget
+2020-07-10 22:31:57.1673 Debug Watching path 'E:\Projects\SocialNetworkingApp\Web.Api' filter 'nlog.config' for changes.
+2020-07-10 22:31:57.1673 Debug --- NLog configuration dump ---
+2020-07-10 22:31:57.1673 Debug Targets:
+2020-07-10 22:31:57.1673 Debug File Target[logfile]
+2020-07-10 22:31:57.1673 Debug Rules:
+2020-07-10 22:31:57.1673 Debug logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] appendTo: [ logfile ]
+2020-07-10 22:31:57.1673 Debug --- End of NLog configuration dump ---
+2020-07-10 22:31:57.1759 Info Validating config: TargetNames=logfile, ConfigItems=14, FilePath=E:\Projects\SocialNetworkingApp\Web.Api/nlog.config
+2020-07-10 22:31:57.1759 Debug Unused target checking is started... Rule Count: 1, Target Count: 1
+2020-07-10 22:31:57.1759 Debug Unused target checking is completed. Total Rule Count: 1, Total Target Count: 1, Unused Target Count: 0
+2020-07-10 22:37:01.9948 Debug ScanAssembly('NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-07-10 22:37:02.1067 Debug Found assembly location directory: 'E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1' (NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c)
+2020-07-10 22:37:02.1067 Debug Search for auto loading files in location: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1
+2020-07-10 22:37:02.1141 Debug Start auto loading, location: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1
+2020-07-10 22:37:02.1141 Info Auto loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-07-10 22:37:02.1141 Info Loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-07-10 22:37:02.1390 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.6.4.1366. Product version: 1.6.4. GlobalAssemblyCache: False
+2020-07-10 22:37:02.1390 Debug ScanAssembly('NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-07-10 22:37:02.1471 Info Auto loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2020-07-10 22:37:02.1471 Debug Auto loading done
+2020-07-10 22:37:02.1471 Info Message Template Auto Format enabled
+2020-07-10 22:37:02.1732 Debug Setting 'NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.uppercase' to 'true'
+2020-07-10 22:37:02.1821 Debug Setting 'NLog.Targets.FileTarget.name' to 'logfile'
+2020-07-10 22:37:02.1821 Debug Setting 'NLog.Targets.FileTarget.fileName' to 'E:\Projects\SocialNetworkingApp\Web.Api\logs\${shortdate}_logfile.txt'
+2020-07-10 22:37:02.1821 Debug Setting 'NLog.Targets.FileTarget.layout' to '${longdate}	${level:uppercase=true}	${message}'
+2020-07-10 22:37:02.1821 Debug Setting 'NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.uppercase' to 'true'
+2020-07-10 22:37:02.1821 Info Adding target FileTarget(Name=logfile)
+2020-07-10 22:37:02.1821 Debug Registered target logfile: NLog.Targets.FileTarget
+2020-07-10 22:37:02.2033 Debug Watching path 'E:\Projects\SocialNetworkingApp\Web.Api' filter 'nlog.config' for changes.
+2020-07-10 22:37:02.2033 Debug --- NLog configuration dump ---
+2020-07-10 22:37:02.2033 Debug Targets:
+2020-07-10 22:37:02.2033 Debug File Target[logfile]
+2020-07-10 22:37:02.2033 Debug Rules:
+2020-07-10 22:37:02.2081 Debug logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] appendTo: [ logfile ]
+2020-07-10 22:37:02.2081 Debug --- End of NLog configuration dump ---
+2020-07-10 22:37:02.2081 Info Validating config: TargetNames=logfile, ConfigItems=14, FilePath=E:\Projects\SocialNetworkingApp\Web.Api/nlog.config
+2020-07-10 22:37:02.2081 Debug Unused target checking is started... Rule Count: 1, Target Count: 1
+2020-07-10 22:37:02.2220 Debug Unused target checking is completed. Total Rule Count: 1, Total Target Count: 1, Unused Target Count: 0
+2020-07-10 22:38:07.7574 Debug ScanAssembly('NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-07-10 22:38:07.8409 Debug Found assembly location directory: 'E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1' (NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c)
+2020-07-10 22:38:07.8409 Debug Search for auto loading files in location: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1
+2020-07-10 22:38:07.8409 Debug Start auto loading, location: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1
+2020-07-10 22:38:07.8467 Info Auto loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-07-10 22:38:07.8467 Info Loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-07-10 22:38:07.8467 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.6.4.1366. Product version: 1.6.4. GlobalAssemblyCache: False
+2020-07-10 22:38:07.8467 Debug ScanAssembly('NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-07-10 22:38:07.8627 Info Auto loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2020-07-10 22:38:07.8627 Debug Auto loading done
+2020-07-10 22:38:07.8627 Info Message Template Auto Format enabled
+2020-07-10 22:38:07.8801 Debug Setting 'NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.uppercase' to 'true'
+2020-07-10 22:38:07.8801 Debug Setting 'NLog.Targets.FileTarget.name' to 'logfile'
+2020-07-10 22:38:07.8801 Debug Setting 'NLog.Targets.FileTarget.fileName' to 'E:\Projects\SocialNetworkingApp\Web.Api\logs\${shortdate}_logfile.txt'
+2020-07-10 22:38:07.8801 Debug Setting 'NLog.Targets.FileTarget.layout' to '${longdate}	${level:uppercase=true}	${message}'
+2020-07-10 22:38:07.8801 Debug Setting 'NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.uppercase' to 'true'
+2020-07-10 22:38:07.8801 Info Adding target FileTarget(Name=logfile)
+2020-07-10 22:38:07.8801 Debug Registered target logfile: NLog.Targets.FileTarget
+2020-07-10 22:38:07.9014 Debug Watching path 'E:\Projects\SocialNetworkingApp\Web.Api' filter 'nlog.config' for changes.
+2020-07-10 22:38:07.9014 Debug --- NLog configuration dump ---
+2020-07-10 22:38:07.9014 Debug Targets:
+2020-07-10 22:38:07.9014 Debug File Target[logfile]
+2020-07-10 22:38:07.9014 Debug Rules:
+2020-07-10 22:38:07.9014 Debug logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] appendTo: [ logfile ]
+2020-07-10 22:38:07.9014 Debug --- End of NLog configuration dump ---
+2020-07-10 22:38:07.9014 Info Validating config: TargetNames=logfile, ConfigItems=14, FilePath=E:\Projects\SocialNetworkingApp\Web.Api/nlog.config
+2020-07-10 22:38:07.9107 Debug Unused target checking is started... Rule Count: 1, Target Count: 1
+2020-07-10 22:38:07.9107 Debug Unused target checking is completed. Total Rule Count: 1, Total Target Count: 1, Unused Target Count: 0
+2020-07-11 09:45:38.0702 Debug ScanAssembly('NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-07-11 09:45:38.1721 Debug Found assembly location directory: 'E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1' (NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c)
+2020-07-11 09:45:38.1721 Debug Search for auto loading files in location: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1
+2020-07-11 09:45:38.1776 Debug Start auto loading, location: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1
+2020-07-11 09:45:38.1776 Info Auto loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-07-11 09:45:38.1776 Info Loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-07-11 09:45:38.1994 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.6.4.1366. Product version: 1.6.4. GlobalAssemblyCache: False
+2020-07-11 09:45:38.1994 Debug ScanAssembly('NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-07-11 09:45:38.1994 Info Auto loading assembly file: E:\Projects\SocialNetworkingApp\Web.Api\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2020-07-11 09:45:38.1994 Debug Auto loading done
+2020-07-11 09:45:38.1994 Info Message Template Auto Format enabled
+2020-07-11 09:45:38.2288 Debug Setting 'NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.uppercase' to 'true'
+2020-07-11 09:45:38.2288 Debug Setting 'NLog.Targets.FileTarget.name' to 'logfile'
+2020-07-11 09:45:38.2288 Debug Setting 'NLog.Targets.FileTarget.fileName' to 'E:\Projects\SocialNetworkingApp\Web.Api\logs\${shortdate}_logfile.txt'
+2020-07-11 09:45:38.2385 Debug Setting 'NLog.Targets.FileTarget.layout' to '${longdate}	${level:uppercase=true}	${message}'
+2020-07-11 09:45:38.2385 Debug Setting 'NLog.LayoutRenderers.Wrappers.UppercaseLayoutRendererWrapper.uppercase' to 'true'
+2020-07-11 09:45:38.2385 Info Adding target FileTarget(Name=logfile)
+2020-07-11 09:45:38.2385 Debug Registered target logfile: NLog.Targets.FileTarget
+2020-07-11 09:45:38.2601 Debug Watching path 'E:\Projects\SocialNetworkingApp\Web.Api' filter 'nlog.config' for changes.
+2020-07-11 09:45:38.2601 Debug --- NLog configuration dump ---
+2020-07-11 09:45:38.2601 Debug Targets:
+2020-07-11 09:45:38.2601 Debug File Target[logfile]
+2020-07-11 09:45:38.2601 Debug Rules:
+2020-07-11 09:45:38.2601 Debug logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] appendTo: [ logfile ]
+2020-07-11 09:45:38.2601 Debug --- End of NLog configuration dump ---
+2020-07-11 09:45:38.2728 Info Validating config: TargetNames=logfile, ConfigItems=14, FilePath=E:\Projects\SocialNetworkingApp\Web.Api/nlog.config
+2020-07-11 09:45:38.2728 Debug Unused target checking is started... Rule Count: 1, Target Count: 1
+2020-07-11 09:45:38.2728 Debug Unused target checking is completed. Total Rule Count: 1, Total Target Count: 1, Unused Target Count: 0

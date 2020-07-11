@@ -44,6 +44,7 @@ namespace Web.Api
             services.AddAutoMapper(typeof(Startup));
 
             services.ConfigureEmailService(Configuration);
+            services.ConfigureFrontend(Configuration);
 
             services.AddControllers(config =>
             {
@@ -73,7 +74,6 @@ namespace Web.Api
 
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             services.AddScoped<IEmailSender, EmailSender>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
