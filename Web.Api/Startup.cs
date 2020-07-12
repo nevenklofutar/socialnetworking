@@ -26,7 +26,10 @@ namespace Web.Api
     {
         public Startup(IConfiguration configuration)
         {
-            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var isProduction = environment == Entities.Configuration.EnvironmentName.Production;
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), 
+                isProduction ? "/nlog.production.config" : "/nlog.config"));
             Configuration = configuration;
         }
 
