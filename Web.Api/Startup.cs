@@ -82,6 +82,9 @@ namespace Web.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
         {
+            //TODO: remove after testing
+            app.UseDeveloperExceptionPage();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -92,7 +95,8 @@ namespace Web.Api
                 app.UseHsts();
             }
 
-            app.ConfigureExceptionHandler(logger);
+            //TODO: remove after testing
+            //app.ConfigureExceptionHandler(logger);
 
             app.UseHttpsRedirection();
 
