@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using EmailService;
+using Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -94,6 +95,8 @@ namespace Web.Api
                 // added from book, what is that ?
                 app.UseHsts();
             }
+
+            ServiceExtensions.UpdateDatabase(app);
 
             //TODO: remove after testing
             //app.ConfigureExceptionHandler(logger);

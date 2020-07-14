@@ -107,5 +107,19 @@ namespace Web.Api.Extensions
                 .Get<FrontendConfiguration>();
             services.AddSingleton(frontendConfiguration);
         }
+
+        public static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<RepositoryContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
+        }
+
     }
 }
