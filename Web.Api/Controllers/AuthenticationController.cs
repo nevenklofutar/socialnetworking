@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
-using NETCore.MailKit.Core;
 using Web.Api.ActionFilters;
 
 namespace Web.Api.Controllers
@@ -58,8 +57,8 @@ namespace Web.Api.Controllers
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var confirmationLink = Url.Action(nameof(ConfirmRegisterEmail), "Authentication", new { token, email = user.Email }, Request.Scheme);
-            var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink);
-            _emailSender.SendEmail(message);
+            var message = new Message(user.Email, "Confirmation email link", confirmationLink, confirmationLink);
+            await _emailSender.SendEmail(message);
 
             await _userManager.AddToRolesAsync(user, userForRegistration.Roles);
             
@@ -106,8 +105,8 @@ namespace Web.Api.Controllers
             RedirectResult redirectResult = new RedirectResult($"{_frontendConfiguration.BaseUrl}{_frontendConfiguration.AuthenticationControllerName}" +
                 $"{_frontendConfiguration.ForgotPasswordActionName}?email={user.Email}&token={token}");
 
-            var message = new Message(new string[] { user.Email }, "Reset password token", redirectResult.Url);
-            _emailSender.SendEmail(message);
+            var message = new Message(user.Email, "Reset password token", redirectResult.Url, redirectResult.Url);
+            await _emailSender.SendEmail(message);
 
             return Ok();
         }

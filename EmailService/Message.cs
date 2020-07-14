@@ -1,4 +1,4 @@
-﻿using MimeKit;
+﻿using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +8,17 @@ namespace EmailService
 {
     public class Message
     {
-        public List<MailboxAddress> To { get; set; }
+        public EmailAddress To { get; set; }
         public string Subject { get; set; }
-        public string Content { get; set; }
+        public string PlainContent { get; set; }
+        public string HtmlContent { get; set; }
 
-        public Message(IEnumerable<string> to, string subject, string content)
+        public Message(string to, string subject, string plainContent, string htmlContent)
         {
-            To = new List<MailboxAddress>();
-
-            To.AddRange(to.Select(x => new MailboxAddress(x)));
+            To = new EmailAddress(to);
             Subject = subject;
-            Content = content;
+            PlainContent = plainContent;
+            HtmlContent = htmlContent;
         }
     }
 }

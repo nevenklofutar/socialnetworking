@@ -1,8 +1,9 @@
-﻿using MailKit.Net.Smtp;
-using MimeKit;
+﻿using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EmailService
 {
@@ -15,46 +16,34 @@ namespace EmailService
             _emailConfig = emailConfig;
         }
 
-        public void SendEmail(Message message)
+        public async Task SendEmail(Message message)
         {
             var emailMessage = CreateEmailMessage(message);
 
-            Send(emailMessage);
+            await Send(emailMessage);
         }
 
-        private MimeMessage CreateEmailMessage(Message message)
+        private SendGridMessage CreateEmailMessage(Message message)
         {
-            var emailMessage = new MimeMessage();
-            emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
-            emailMessage.To.AddRange(message.To);
-            emailMessage.Subject = message.Subject;
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = message.Content };
+            EmailAddress from = new EmailAddress(_emailConfig.From);
+            SendGridMessage emailMessage = MailHelper.CreateSingleEmail(from, message.To, message.Subject, 
+                message.PlainContent, message.HtmlContent);
 
             return emailMessage;
-        }
+        } 
 
-        private void Send(MimeMessage mailMessage)
+        private async Task Send(SendGridMessage mailMessage)
         {
-            using (var client = new SmtpClient())
+            try
             {
-                try
-                {
-                    client.Connect(_emailConfig.SmtpServer, _emailConfig.Port, true);
-                    client.AuthenticationMechanisms.Remove("XOAUTH2");
-                    client.Authenticate(_emailConfig.UserName, _emailConfig.Password);
-
-                    client.Send(mailMessage);
-                }
-                catch
-                {
-                    //log an error message or throw an exception or both.
-                    throw;
-                }
-                finally
-                {
-                    client.Disconnect(true);
-                    client.Dispose();
-                }
+                var apiKey = _emailConfig.SendGridApiKey; // Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+                var client = new SendGridClient(apiKey);
+                var response = await client.SendEmailAsync(mailMessage);
+            }
+            catch
+            {
+                //log an error message or throw an exception or both.
+                throw;
             }
         }
     }
