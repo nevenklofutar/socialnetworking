@@ -21,6 +21,11 @@ namespace Entities.Configuration
                 {
                     Name = "Administrator",
                     NormalizedName = "ADMINISTRATOR"
+                },
+                new IdentityRole
+                {
+                    Name = "User",
+                    NormalizedName = "USER"
                 }
             );
         }
