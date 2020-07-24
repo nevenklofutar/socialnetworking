@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
@@ -8,12 +9,14 @@ using EmailService;
 using Entities.Configuration;
 using Entities.DTOs;
 using Entities.Models;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Web.Api.ActionFilters;
+using Web.Api.Extensions;
 
 namespace Web.Api.Controllers
 {
@@ -52,7 +55,7 @@ namespace Web.Api.Controllers
                 {
                     ModelState.TryAddModelError(error.Code, error.Description);
                 }
-                return BadRequest(ModelState);
+                throw ProblemDetailsErrorHelper.ProblemDetailsError(ModelState);
             }
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);

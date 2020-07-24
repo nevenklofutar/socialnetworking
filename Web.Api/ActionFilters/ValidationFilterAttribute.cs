@@ -1,9 +1,12 @@
 ﻿using Contracts;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using SendGrid.Helpers.Errors.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Web.Api.ActionFilters
@@ -26,14 +29,20 @@ namespace Web.Api.ActionFilters
             if (param == null)
             {
                 _logger.LogError($"Object sent from client is null. Controller: {controller}, action: { action}");
-                context.Result = new BadRequestObjectResult($"Object is null. Controller: { controller }, action: { action} ");
-                return;
+                //context.Result = new BadRequestObjectResult($"Object is null. Controller: { controller }, action: { action} ");
+                //return;
+                throw new ProblemDetailsException((int)HttpStatusCode.BadRequest, 
+                    $"Object is null. Controller: { controller }, action: { action} ");
             }
 
             if (!context.ModelState.IsValid)
             {
                 _logger.LogError($"Invalid model state for the object. Controller: { controller}, action: { action}");
-                context.Result = new UnprocessableEntityObjectResult(context.ModelState);
+                
+                //context.Result = new UnprocessableEntityObjectResult(context.ModelState);
+                var problemDetailsValidation = new ValidationProblemDetails(context.ModelState);
+                problemDetailsValidation.Status = 422;
+                throw new ProblemDetailsException(problemDetailsValidation);
             }
         }
 

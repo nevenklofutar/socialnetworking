@@ -7,6 +7,7 @@ using AutoMapper;
 using Contracts;
 using EmailService;
 using Entities;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -63,6 +64,17 @@ namespace Web.Api
                 .AddXmlDataContractSerializerFormatters()
                 .AddCustomCSVFormatter();
 
+            services.AddProblemDetails(opts =>
+            {
+                // Control when an exception is included
+                opts.IncludeExceptionDetails = (ctx, ex) =>
+                {
+                    // Fetch services from HttpContext.RequestServices
+                    var env = ctx.RequestServices.GetRequiredService<IHostEnvironment>();
+                    return env.IsDevelopment() || env.IsStaging();
+                };
+            });
+
             //To return 422 instead of 400, the first thing we have to do is to suppress the BadRequest error when the ModelState is invalid.
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -83,18 +95,20 @@ namespace Web.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
         {
-            //TODO: remove after testing
-            app.UseDeveloperExceptionPage();
+            app.UseProblemDetails();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                // added from book, what is that ?
-                app.UseHsts();
-            }
+            ////TODO: remove after testing
+            //app.UseDeveloperExceptionPage();
+
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    // added from book, what is that ?
+            //    app.UseHsts();
+            //}
 
             ServiceExtensions.UpdateDatabase(app);
 

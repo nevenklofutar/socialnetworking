@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entities.ErrorModel;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -25,11 +26,12 @@ namespace Web.Api.Extensions
                     if (contextFeature != null)
                     {
                         logger.LogError($"Something went wrong: {contextFeature.Error}");
-                        await context.Response.WriteAsync(new ErrorDetails()
-                        {
-                            StatusCode = context.Response.StatusCode,
-                            Message = "Internal Server Error."
-                        }.ToString());
+                        //await context.Response.WriteAsync(new ErrorDetails()
+                        //{
+                        //    StatusCode = context.Response.StatusCode,
+                        //    Message = "Internal Server Error."
+                        //}.ToString());
+                        throw new ProblemDetailsException(500, "Internal Server Error.");
                     }
                 });
             });
