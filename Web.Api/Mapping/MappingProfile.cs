@@ -17,8 +17,7 @@ namespace Web.Api.Mapping
             CreateMap<PostForUpdateDto, Post>().ReverseMap();
 
             CreateMap<UserForRegistrationDto, User>();
-            CreateMap<User, UserDto>()
-                .ForMember(u => u.FullName, opt => opt.MapFrom(x => x.FirstName + " " + x.LastName));
+            CreateMap<User, UserDto>();
 
             CreateMap<CommentForCreationDto, Comment>();
             CreateMap<Comment, CommentDto>()

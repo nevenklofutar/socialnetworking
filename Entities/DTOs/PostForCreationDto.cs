@@ -7,6 +7,7 @@ namespace Entities.DTOs
 {
     public class PostForCreationDto : PostForManipulationDto
     {
+        public string CreatedById { get; set; }
 
     }
 }

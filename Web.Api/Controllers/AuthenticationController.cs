@@ -59,23 +59,29 @@ namespace Web.Api.Controllers
             }
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var confirmationLink = Url.Action(nameof(ConfirmRegisterEmail), "Authentication", new { token, email = user.Email }, Request.Scheme);
-            var message = new Message(user.Email, "Confirmation email link", confirmationLink, confirmationLink);
-            await _emailSender.SendEmail(message);
+            //var confirmationLink = Url.Action(nameof(ConfirmRegisterEmail), "Authentication", new { token, email = user.Email }, Request.Scheme);
+            //var message = new Message(user.Email, "Confirmation email link", confirmationLink, confirmationLink);
+            //await _emailSender.SendEmail(message);
 
-            await _userManager.AddToRolesAsync(user, userForRegistration.Roles);
-            
+            //await _userManager.AddToRolesAsync(user, userForRegistration.Roles);
+
+            //return StatusCode(201);
+
+            RedirectResult redirectResult = new RedirectResult($"{_frontendConfiguration.BaseUrl}{_frontendConfiguration.AuthenticationControllerName}" +
+                $"{_frontendConfiguration.RegisterConfirm}?email={user.Email}&token={token}");
+            var message = new Message(user.Email, "Register confirm", redirectResult.Url, redirectResult.Url);
+            await _emailSender.SendEmail(message);
             return StatusCode(201);
         }
 
-        [HttpGet("confirmregisteremail")]
-        public async Task<IActionResult> ConfirmRegisterEmail(string token, string email)
+        [HttpPost("confirmregisteremail")]
+        public async Task<IActionResult> ConfirmRegisterEmail([FromBody]RegisterConfirmEmail parameters)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(parameters.Email);
             if (user == null)
                 return BadRequest();
 
-            var result = await _userManager.ConfirmEmailAsync(user, token);
+            var result = await _userManager.ConfirmEmailAsync(user, parameters.Token);
             return Ok();
         }
 
@@ -87,9 +93,12 @@ namespace Web.Api.Controllers
             {
                 _logger.LogWarning($"{nameof(Login)}: Login failed. Wrong user name or password.");
                 return Unauthorized();
+                //throw new ProblemDetailsException(401, "Unauthorized");
             }
 
-            return Ok(new { Token = await _authManager.CreateToken() });
+            var userFromRepo = await _userManager.FindByNameAsync(user.UserName);
+            var userToReturn = _mapper.Map<UserDto>(userFromRepo);
+            return Ok(new { Token = await _authManager.CreateToken(), User = userToReturn });
         }
 
         [HttpPost("forgotpassword")]

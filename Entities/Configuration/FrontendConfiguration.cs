@@ -9,5 +9,6 @@ namespace Entities.Configuration
         public string BaseUrl { get; set; }
         public string AuthenticationControllerName { get; set; }
         public string ForgotPasswordActionName { get; set; }
+        public string RegisterConfirm { get; set; }
     }
 }

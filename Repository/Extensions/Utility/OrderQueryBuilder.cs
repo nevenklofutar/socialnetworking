@@ -27,7 +27,7 @@ namespace Repository.Extensions.Utility
                 if (objectProperty == null)
                     continue;
 
-                var direction = param.EndsWith(" desc") ? "descending" : "ascending";
+                var direction = param.ToLower().EndsWith(" desc") ? "descending" : "ascending";
                 orderQueryBuilder.Append($"{objectProperty.Name.ToString()} {direction},");
             }
 

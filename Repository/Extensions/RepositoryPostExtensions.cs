@@ -34,12 +34,12 @@ namespace Repository.Extensions
         public static IQueryable<Post> SortPosts(this IQueryable<Post> posts, string orderByQueryString)
         {
             if (string.IsNullOrWhiteSpace(orderByQueryString))
-                return posts.OrderBy(p => p.Title);
+                return posts.OrderByDescending(p => p.CreatedOn);
 
             var orderQuery = OrderQueryBuilder.CreateOrderQuery<Post>(orderByQueryString);
 
             if (string.IsNullOrWhiteSpace(orderQuery))
-                return posts.OrderBy(p => p.Title);
+                return posts.OrderByDescending(p => p.CreatedOn);
 
             return posts.OrderBy(orderQuery);
         }

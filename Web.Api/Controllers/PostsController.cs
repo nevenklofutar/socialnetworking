@@ -7,6 +7,7 @@ using Contracts;
 using Entities.DTOs;
 using Entities.Models;
 using Entities.RequestFeatures;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -46,6 +47,23 @@ namespace Web.Api.Controllers
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(posts.MetaData));
 
             var postsDto = _mapper.Map <IEnumerable<PostDto>>(posts);
+
+            return Ok(postsDto);
+        }
+
+        [HttpPost("/user")]
+        public async Task<IActionResult> GetPostsForUser([FromBody] string userId, [FromQuery] PostParameters postParameters) {
+
+            var userFromDb = await _userManager.GetUserAsync(this.User);
+            if (userFromDb.Id != userId)
+                return Unauthorized();
+
+            postParameters.SearchTerm = "userId=" + userId;
+            var posts = await _repository.Post.GetPostsAsync(postParameters, false);
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(posts.MetaData));
+
+            var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
 
             return Ok(postsDto);
         }
