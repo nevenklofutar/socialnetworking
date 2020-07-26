@@ -72,8 +72,8 @@ namespace Web.Api.Extensions
 
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {
-            var jwtSettings = configuration.GetSection("JwtSettings");
-            var secretKey = jwtSettings.GetSection("secretKey").Value;
+            //var jwtSettings = configuration.GetSection("JwtSettings");
+            var secretKey = Environment.GetEnvironmentVariable("SN_JWTSETTINGS_SECRETKEY");
 
             services.AddAuthentication(opt => {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -81,30 +81,33 @@ namespace Web.Api.Extensions
             })
                 .AddJwtBearer(options =>
                 {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
+                    options.TokenValidationParameters = new TokenValidationParameters {
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = jwtSettings.GetSection("validIssuer").Value,
-                        ValidAudience = jwtSettings.GetSection("validAudience").Value,
+                        ValidIssuer = Environment.GetEnvironmentVariable("SN_JWTSETTINGS_VALIDISSUER"),
+                        ValidAudience = Environment.GetEnvironmentVariable("SN_JWTSETTINGS_VALIDAUDIENCE"),
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                     };
                 });
         }
 
-        public static void ConfigureEmailService(this IServiceCollection services, IConfiguration configuration)
-        {
-            var emailConfig = configuration.GetSection("EmailConfiguration")
-                .Get<EmailConfiguration>();
+        public static void ConfigureEmailService(this IServiceCollection services, IConfiguration configuration) {
+            var emailConfig = new EmailConfiguration() {
+                From = Environment.GetEnvironmentVariable("SN_EMAILCONFIG_FROM"),
+                SendGridApiKey = Environment.GetEnvironmentVariable("SN_EMAILCONFIG_SENDGRID_APIKEY")
+            };
             services.AddSingleton(emailConfig);
         }
 
-        public static void ConfigureFrontend(this IServiceCollection services, IConfiguration configuration)
-        {
-            var frontendConfiguration = configuration.GetSection("Frontend")
-                .Get<FrontendConfiguration>();
+        public static void ConfigureFrontend(this IServiceCollection services, IConfiguration configuration) {
+            var frontendConfiguration = new FrontendConfiguration() {
+                AuthenticationControllerName = Environment.GetEnvironmentVariable("SN_FRONTENDSETTINGS_AUTHCONTROLLERNAME"),
+                BaseUrl = Environment.GetEnvironmentVariable("SN_FRONTENDSETTINGS_BASEURL"),
+                ForgotPasswordActionName = Environment.GetEnvironmentVariable("SN_FRONTENDSETTINGS_FORGOTPASSWORDACTIONNAME"),
+                RegisterConfirm = Environment.GetEnvironmentVariable("SN_FRONTENDSETTINGS_REGISTRATIONCONFIRM"),
+            };
             services.AddSingleton(frontendConfiguration);
         }
 

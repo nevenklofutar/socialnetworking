@@ -44,10 +44,10 @@ namespace Web.Api.Utility
 
         private SigningCredentials GetSigningCredentials()
         {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
+            //var jwtSettings = _configuration.GetSection("JwtSettings");
 
-            //var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET"));
-            var key = Encoding.UTF8.GetBytes(jwtSettings.GetSection("secretKey").Value);
+            var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SN_JWTSETTINGS_SECRETKEY"));
+            //var key = Encoding.UTF8.GetBytes(jwtSettings.GetSection("secretKey").Value);
             var secret = new SymmetricSecurityKey(key);
 
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
@@ -76,8 +76,8 @@ namespace Web.Api.Utility
 
             var tokenOptions = new JwtSecurityToken
             (
-                issuer: jwtSettings.GetSection("validIssuer").Value,
-                audience: jwtSettings.GetSection("validAudience").Value,
+                issuer: Environment.GetEnvironmentVariable("SN_JWTSETTINGS_VALIDISSUER"),
+                audience: Environment.GetEnvironmentVariable("SN_JWTSETTINGS_VALIDAUDIENCE"),
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings.GetSection("expires").Value)),
                 signingCredentials: signingCredentials
