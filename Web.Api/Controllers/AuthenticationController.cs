@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using Contracts;
 using EmailService;
@@ -63,17 +64,12 @@ namespace Web.Api.Controllers
                 throw ProblemDetailsErrorHelper.ProblemDetailsError(ModelState);
             }
 
+            //https://stackoverflow.com/questions/6855624/plus-sign-in-query-string
+            // we need to url encode token because token is not url safe
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            //var confirmationLink = Url.Action(nameof(ConfirmRegisterEmail), "Authentication", new { token, email = user.Email }, Request.Scheme);
-            //var message = new Message(user.Email, "Confirmation email link", confirmationLink, confirmationLink);
-            //await _emailSender.SendEmail(message);
-
-            //await _userManager.AddToRolesAsync(user, userForRegistration.Roles);
-
-            //return StatusCode(201);
 
             RedirectResult redirectResult = new RedirectResult($"{_frontendConfiguration.BaseUrl}{_frontendConfiguration.AuthenticationControllerName}" +
-                $"{_frontendConfiguration.RegisterConfirm}?email={user.Email}&token={token}");
+                $"{_frontendConfiguration.RegisterConfirm}?email={user.Email}&token={HttpUtility.UrlEncode(token)}");
             var message = new Message(user.Email, "Register confirm", redirectResult.Url, redirectResult.Url);
             await _emailSender.SendEmail(message);
             return StatusCode(201);
@@ -83,11 +79,23 @@ namespace Web.Api.Controllers
         public async Task<IActionResult> ConfirmRegisterEmail([FromBody]RegisterConfirmEmail parameters)
         {
             var user = await _userManager.FindByEmailAsync(parameters.Email);
-            if (user == null)
-                return BadRequest();
+            if (user == null) { 
+                _logger.LogError($"AuthenticationController.ConfirmRegisterEmail email:{parameters.Email}; error:unknown user");
+                throw new ProblemDetailsException(400, "Error occured");
+            }
 
             var result = await _userManager.ConfirmEmailAsync(user, parameters.Token);
-            return Ok();
+            if (result.Succeeded) {
+                // https://stackoverflow.com/questions/22755700/revoke-token-generated-by-usertokenprovider-in-asp-net-identity-2-0
+                // we need to reset user security stamp after he confirms email, so he will get new security token
+                // so he can't confirm register over and over again with the same token
+                await _userManager.UpdateSecurityStampAsync(user);
+                return Ok();
+            }
+
+            _logger.LogError($"AuthenticationController.ConfirmRegisterEmail email:{parameters.Email}; error:{result.Errors}");
+
+            throw new ProblemDetailsException(400, "Error occured");
         }
 
         [HttpPost("login")]
@@ -118,10 +126,12 @@ namespace Web.Api.Controllers
             if (user == null)
                 return Ok();
 
+            //https://stackoverflow.com/questions/6855624/plus-sign-in-query-string
+            // we need to url encode token because token is not url safe
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
             RedirectResult redirectResult = new RedirectResult($"{_frontendConfiguration.BaseUrl}{_frontendConfiguration.AuthenticationControllerName}" +
-                $"{_frontendConfiguration.ForgotPasswordActionName}?email={user.Email}&token={token}");
+                $"{_frontendConfiguration.ForgotPasswordActionName}?email={user.Email}&token={HttpUtility.UrlEncode(token)}");
 
             var message = new Message(user.Email, "Reset password token", redirectResult.Url, redirectResult.Url);
             await _emailSender.SendEmail(message);
