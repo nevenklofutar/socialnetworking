@@ -13,6 +13,7 @@ namespace Repository
         private IPostRepository _postRepository;
         private ILikeRepository _likeRepository;
         private ICommentRepository _commentRepository;
+        private IUserRepository _userRepository;
 
         public RepositoryManager(RepositoryContext repositoryContext)
         {
@@ -49,6 +50,15 @@ namespace Repository
                     _commentRepository = new CommentRepository(_repositoryContext);
 
                 return _commentRepository;
+            }
+        }
+
+        public IUserRepository User {
+            get {
+                if (_userRepository == null)
+                    _userRepository = new UserRepository(_repositoryContext);
+
+                return _userRepository;
             }
         }
 

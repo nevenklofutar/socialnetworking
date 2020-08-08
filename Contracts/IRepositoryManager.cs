@@ -10,6 +10,7 @@ namespace Contracts
         IPostRepository Post { get;  }
         ILikeRepository Like { get; }
         ICommentRepository Comment { get; }
+        IUserRepository User { get; }
 
         Task SaveAsync();
     }
