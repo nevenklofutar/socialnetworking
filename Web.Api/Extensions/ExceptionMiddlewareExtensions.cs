@@ -33,6 +33,7 @@ namespace Web.Api.Extensions
                 //    }
                 //});
 
+                logger.LogError($"Something went wrong: {appError}");
                 throw new ProblemDetailsException(500, "Internal Server Error.");
             });
         }
