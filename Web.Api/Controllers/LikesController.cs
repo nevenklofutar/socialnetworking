@@ -39,5 +39,11 @@ namespace Web.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetLikesCountForPost(int postId) {
+            var likesCount = await _repository.Like.GetLikesCountForPostAsync(postId);
+            return Ok(likesCount);
+        }
     }
 }
