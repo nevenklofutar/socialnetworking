@@ -28,6 +28,12 @@ namespace Web.Api.Controllers {
             _mapper = mapper;
         }
 
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUser(string userId) {
+            var userFromRepo = await _repository.User.GetUserById(userId);
+            return Ok(_mapper.Map<UserDto>(userFromRepo));
+        }
+
         [HttpPost("search")]
         public async Task<IActionResult> GetUsers([FromBody]UserParameters userParameters) {
             // TODO: switch this query because of paging

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace Contracts {
     public interface IUserRepository {
 
+        public Task<User> GetUserById(string userId);
         public Task<List<User>> GetUsersAsync(UserParameters userParameters, bool trackChanges);
     }
 }

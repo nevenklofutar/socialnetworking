@@ -17,6 +17,10 @@ namespace Repository {
             : base(repositoryContext) {
         }
 
+        public Task<User> GetUserById(string userId) {
+            return FindByCondition(user => user.Id == userId).SingleOrDefaultAsync<User>();
+        }
+
         public Task<List<User>> GetUsersAsync(UserParameters userParameters, bool trackChanges) {
             
             var users = FindByCondition(user => user.FirstName.ToLower().Contains(userParameters.SearchTerm.ToLower()) ||
@@ -25,7 +29,6 @@ namespace Repository {
                 .ToListAsync<User>();
 
             return users;
-
         }
     }
 }
