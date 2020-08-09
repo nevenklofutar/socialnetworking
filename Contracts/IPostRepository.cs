@@ -14,7 +14,7 @@ namespace Contracts
         //database.All we're doing is changing the state of the entity to Added and
         //Deleted.
 
-        Task<PagedList<Post>> GetPostsAsync(PostParameters postParameters, bool trackChanges);
+        Task<IEnumerable<Post>> GetPostsForUserAsync(PostParameters postParameters, bool trackChanges);
         Task<Post> GetPostAsync(int postId, bool trackChanges = false);
         void CreatePost(Post post);
         void DeletePost(Post post);

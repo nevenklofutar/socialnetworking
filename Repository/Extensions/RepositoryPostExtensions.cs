@@ -20,7 +20,14 @@ namespace Repository.Extensions
 
             return posts;
         }
-        
+
+        public static IQueryable<Post> SearchUserPosts(this IQueryable<Post> posts, string createdByUserId) {
+            if (string.IsNullOrWhiteSpace(createdByUserId))
+                return posts;
+
+            return posts.Where(p => p.CreatedById == createdByUserId);
+        }
+
         public static IQueryable<Post> SearchPosts(this IQueryable<Post> posts, string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))

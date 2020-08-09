@@ -13,5 +13,6 @@ namespace Entities.RequestFeatures
 
         public string Title { get; set; }
         public string Body { get; set; }
+        public string CreatedByUserId { get; set; }
     }
 }

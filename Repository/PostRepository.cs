@@ -19,15 +19,11 @@ namespace Repository
         {
         }
 
-        public async Task<PagedList<Post>> GetPostsAsync(PostParameters postParameters, bool trackChanges)
-        {
-            var posts = await FindAll(trackChanges)
-                .FilterPosts(postParameters.Title, postParameters.Body)
-                .SearchPosts(postParameters.SearchTerm)
+        public async Task<IEnumerable<Post>> GetPostsForUserAsync(PostParameters postParameters, bool trackChanges) {
+            return await FindAll(trackChanges)
+                .SearchUserPosts(postParameters.CreatedByUserId)
                 .SortPosts(postParameters.OrderBy)
                 .ToListAsync();
-
-            return PagedList<Post>.ToPagedList(posts, postParameters.PageNumber, postParameters.PageSize);
         }
 
         public async Task<Post> GetPostAsync(int postId, bool trackChanges = false) =>
@@ -43,5 +39,7 @@ namespace Repository
         public void DeletePost(Post post) { 
             Delete(post);
         }
+
+
     }
 }
