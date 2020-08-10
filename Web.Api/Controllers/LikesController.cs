@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
+using Entities.DTOs;
 using Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -42,8 +43,9 @@ namespace Web.Api.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetLikesCountForPost(int postId) {
-            var likesCount = await _repository.Like.GetLikesCountForPostAsync(postId);
-            return Ok(likesCount);
+            var likes = await _repository.Like.GetLikesForPostAsync(postId);
+            var likesDto = _mapper.Map<IEnumerable<LikeDto>>(likes);
+            return Ok(likesDto);
         }
     }
 }

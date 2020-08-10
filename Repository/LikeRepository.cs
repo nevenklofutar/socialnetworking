@@ -18,9 +18,9 @@ namespace Repository
         {
         }
 
-        public async Task<int> GetLikesCountForPostAsync(int postId) =>
+        public async Task<IEnumerable<Like>> GetLikesForPostAsync(int postId) =>
             await FindByCondition(l => l.PostId == postId)
-                .CountAsync();
+                .ToListAsync<Like>();
 
         public async Task ProcessLikeAsync(int postId, string userId)
         {

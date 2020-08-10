@@ -22,6 +22,8 @@ namespace Web.Api.Mapping
             CreateMap<CommentForCreationDto, Comment>();
             CreateMap<Comment, CommentDto>()
                 .ForMember(c => c.CommentedByName, opt => opt.MapFrom(x => x.CommentedBy.FirstName + " " + x.CommentedBy.LastName));
+
+            CreateMap<Like, LikeDto>();
         }
     }
 }
