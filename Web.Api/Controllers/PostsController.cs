@@ -65,5 +65,14 @@ namespace Web.Api.Controllers
 
             return Ok(postToReturn);
         }
+
+        [HttpDelete("{postId}")]
+        public async Task<IActionResult> DeletePost(int postId) {
+            var postToDelete = await _repository.Post.GetPostAsync(postId, false);
+            _repository.Post.DeletePost(postToDelete);
+            await _repository.SaveAsync();
+
+            return NoContent();
+        }
     }
 }
