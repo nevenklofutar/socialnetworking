@@ -9,5 +9,7 @@ namespace Entities.DTOs
         public int Id { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
+        public string CreatedById { get; set; }
+        public LikeDto Likes { get; set; }
     }
 }

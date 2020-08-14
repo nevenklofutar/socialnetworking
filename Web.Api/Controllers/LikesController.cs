@@ -42,9 +42,14 @@ namespace Web.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetLikesCountForPost(int postId) {
+        public async Task<IActionResult> GetLikesForPost(int postId) {
+            var userFromDb = await _userManager.GetUserAsync(this.User);
             var likes = await _repository.Like.GetLikesForPostAsync(postId);
-            var likesDto = _mapper.Map<IEnumerable<LikeDto>>(likes);
+            
+            var likesDto = new LikeDto() { 
+                LikesCount = likes.Count(),
+                CurrentUserLiked = likes.Any(l => l.LikerId == userFromDb.Id)
+            };
             return Ok(likesDto);
         }
     }

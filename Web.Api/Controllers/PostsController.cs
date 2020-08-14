@@ -22,7 +22,7 @@ namespace Web.Api.Controllers
 {
     [Route("api/posts")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class PostsController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
@@ -44,10 +44,25 @@ namespace Web.Api.Controllers
 
             //Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(posts.MetaData));
 
-            var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
+            //var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
+            var postsDto = new List<PostDto>();
+            var userFromDb = await _userManager.GetUserAsync(this.User);
+            foreach (var post in posts) {
+                var postDto = new PostDto() {
+                    Id = post.Id,
+                    Body = post.Body,
+                    CreatedById = post.CreatedById,
+                    Title = post.Title,
+                    Likes = new LikeDto() {
+                        LikesCount = post.Likes.Count,
+                        CurrentUserLiked = post.Likes.Any(l => l.LikerId == userFromDb.Id)
+                    }
+                };
+
+                postsDto.Add(postDto);
+            }
 
             return Ok(postsDto);
-
         }
 
         [HttpPost]

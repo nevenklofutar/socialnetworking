@@ -4,6 +4,7 @@ using Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Web.Api.Mapping
@@ -12,7 +13,10 @@ namespace Web.Api.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Post, PostDto>();
+            CreateMap<Post, PostDto>()
+                .ForPath(p => p.Likes.LikesCount, opt => opt.MapFrom(x => x.Likes.Count));
+                //.ForMember(p => p.Like.LikesCount, opt => opt.MapFrom(x => x.Likes.Count));
+
             CreateMap<PostForCreationDto, Post>();
             CreateMap<PostForUpdateDto, Post>().ReverseMap();
 

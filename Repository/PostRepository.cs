@@ -23,6 +23,7 @@ namespace Repository
             return await FindAll(trackChanges)
                 .SearchUserPosts(postParameters.CreatedByUserId)
                 .SortPosts(postParameters.OrderBy)
+                .Include(p => p.Likes)
                 .ToListAsync();
         }
 

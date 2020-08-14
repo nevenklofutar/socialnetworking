@@ -43,11 +43,6 @@ namespace Web.Api.Controllers
             _frontendConfiguration = frontendConfiguration;
         }
 
-        [HttpPost("test")]
-        public async Task<IActionResult> Test() {
-            return Ok(Environment.GetEnvironmentVariable("TEST_VALUE"));
-        }
-
         [HttpPost("register")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
