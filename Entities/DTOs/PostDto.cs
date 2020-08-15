@@ -11,5 +11,6 @@ namespace Entities.DTOs
         public string Body { get; set; }
         public string CreatedById { get; set; }
         public LikeDto Likes { get; set; }
+        public IEnumerable<CommentDto> Comments { get; set; }
     }
 }

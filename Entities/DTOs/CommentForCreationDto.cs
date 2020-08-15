@@ -8,5 +8,6 @@ namespace Entities.DTOs
     {
         public string Content { get; set; }
         public int PostId { get; set; }
+        public string CommentedById { get; set; }
     }
 }

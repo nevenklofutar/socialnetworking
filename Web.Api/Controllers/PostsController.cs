@@ -59,6 +59,9 @@ namespace Web.Api.Controllers
                     }
                 };
 
+                IEnumerable<CommentDto> commentsDto = _mapper.Map<IEnumerable<CommentDto>>(post.Comments);
+                postDto.Comments = commentsDto;
+
                 postsDto.Add(postDto);
             }
 

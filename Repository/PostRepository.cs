@@ -24,6 +24,8 @@ namespace Repository
                 .SearchUserPosts(postParameters.CreatedByUserId)
                 .SortPosts(postParameters.OrderBy)
                 .Include(p => p.Likes)
+                .Include(p => p.Comments)
+                .ThenInclude(c => c.CommentedBy)
                 .ToListAsync();
         }
 

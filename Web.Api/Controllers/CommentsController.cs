@@ -15,7 +15,7 @@ namespace Web.Api.Controllers
 {
     [Route("api/posts/{postId}/comments")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CommentsController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
@@ -48,21 +48,25 @@ namespace Web.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment(int postId, [FromBody] CommentForCreationDto commentForCreationDto)
+        public async Task<IActionResult> CreateComment([FromBody] CommentForCreationDto commentForCreationDto)
         {
             var commentToCreate = _mapper.Map<Comment>(commentForCreationDto);
             var userFromDb = await _userManager.GetUserAsync(this.User);
 
-            commentToCreate.CommentedById = userFromDb.Id;
+            if (userFromDb.Id != commentForCreationDto.CommentedById)
+                return Unauthorized();
+
+            commentToCreate.CommentedById = commentForCreationDto.CommentedById;
             commentToCreate.CreatedOn = DateTime.Now;
-            commentToCreate.PostId = postId;
+            commentToCreate.PostId = commentForCreationDto.PostId;
 
             _repository.Comment.CreateComment(commentToCreate);
             await _repository.SaveAsync();
 
             var commentToReturn = _mapper.Map<CommentDto>(commentToCreate);
 
-            return CreatedAtAction("GetComment", new { postId, commentId = commentToReturn.Id }, commentToReturn);
+            //return CreatedAtAction("GetComment", new { postId, commentId = commentToReturn.Id }, commentToReturn);
+            return Ok(commentToReturn); 
         }
 
         [HttpDelete("{commentId}")]
