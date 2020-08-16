@@ -15,7 +15,7 @@ namespace Web.Api.Controllers
 {
     [Route("api/posts/{postId}/comments")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CommentsController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
