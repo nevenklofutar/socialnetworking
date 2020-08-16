@@ -92,5 +92,21 @@ namespace Web.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("{postId}")]
+        public async Task<IActionResult> UpdatePost(int postId, [FromBody] PostForUpdateDto post) {
+            var userFromDb = await _userManager.GetUserAsync(this.User);
+            var postToUpdate = await _repository.Post.GetPostAsync(postId, false);
+
+            if (userFromDb.Id != postToUpdate.CreatedById)
+                return Unauthorized();
+
+            postToUpdate.Body = post.Body;
+
+            _repository.Post.UpdatePost(postToUpdate);
+            await _repository.SaveAsync();
+
+            return NoContent();
+        }
     }
 }

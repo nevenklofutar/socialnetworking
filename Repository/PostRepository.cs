@@ -43,6 +43,10 @@ namespace Repository
             Delete(post);
         }
 
+        public void UpdatePost(Post post) {
+            Update(post);
+        }
+
 
     }
 }

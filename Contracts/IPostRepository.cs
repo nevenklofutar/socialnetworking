@@ -18,6 +18,7 @@ namespace Contracts
         Task<Post> GetPostAsync(int postId, bool trackChanges = false);
         void CreatePost(Post post);
         void DeletePost(Post post);
+        void UpdatePost(Post post);
 
     }
 }
