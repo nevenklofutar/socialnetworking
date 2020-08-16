@@ -87,6 +87,10 @@ namespace Web.Api.Controllers
         [HttpDelete("{postId}")]
         public async Task<IActionResult> DeletePost(int postId) {
             var postToDelete = await _repository.Post.GetPostAsync(postId, false);
+
+            if (postToDelete == null)
+                return BadRequest();
+
             _repository.Post.DeletePost(postToDelete);
             await _repository.SaveAsync();
 
@@ -97,6 +101,9 @@ namespace Web.Api.Controllers
         public async Task<IActionResult> UpdatePost(int postId, [FromBody] PostForUpdateDto post) {
             var userFromDb = await _userManager.GetUserAsync(this.User);
             var postToUpdate = await _repository.Post.GetPostAsync(postId, false);
+
+            if (postToUpdate == null)
+                return BadRequest();
 
             if (userFromDb.Id != postToUpdate.CreatedById)
                 return Unauthorized();
