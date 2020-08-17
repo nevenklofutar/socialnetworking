@@ -13,5 +13,6 @@ namespace Contracts
 
         public void CreateComment(Comment comment);
         public void DeleteComment(Comment comment);
+        public void UpdateComment(Comment comment);
     }
 }

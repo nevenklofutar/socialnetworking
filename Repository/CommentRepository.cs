@@ -37,6 +37,9 @@ namespace Repository
 
         public void DeleteComment(Comment comment) =>
             Delete(comment);
-        
+
+        public void UpdateComment(Comment comment) =>
+            Update(comment);
+
     }
 }

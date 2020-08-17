@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Entities.DTOs
 {
-    public class CommentForCreationDto
+    public class CommentForCreationDto : CommentForManipulationDto
     {
-        public string Content { get; set; }
         public int PostId { get; set; }
         public string CommentedById { get; set; }
     }

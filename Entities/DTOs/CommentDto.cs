@@ -9,7 +9,7 @@ namespace Entities.DTOs
         public int Id { get; set; }
         public string Content { get; set; }
         public DateTime CreatedOn { get; set; }
-
+        public string CommentedById { get; set; }
         public string CommentedByName { get; set; }
     }
 }

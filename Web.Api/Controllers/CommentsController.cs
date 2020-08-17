@@ -70,10 +70,42 @@ namespace Web.Api.Controllers
         }
 
         [HttpDelete("{commentId}")]
-        public async Task<IActionResult> DeleteComment(int commentId)
-        {
+        public async Task<IActionResult> DeleteComment(int postId, int commentId) {
             var commentToDelete = await _repository.Comment.GetCommentAsync(commentId);
+
+            if (commentToDelete == null)
+                return BadRequest();
+
+            //TODO: fix this
+            //The instance of entity type cannot be tracked because another instance with the same key value for { 'Id'} is already being tracked
+
+            //var userFromDb = await _userManager.GetUserAsync(this.User);
+            //if (commentToDelete.CommentedById != userFromDb.Id)
+            //    return Unauthorized();
+
             _repository.Comment.DeleteComment(commentToDelete);
+            await _repository.SaveAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("{commentId}")]
+        public async Task<IActionResult> UpdateComment(int postId, int commentId, [FromBody]CommentForUpdateDto commentForUpdateDto) {
+            var commentToUpdate = await _repository.Comment.GetCommentAsync(commentId);
+
+            if (commentToUpdate == null)
+                return BadRequest();
+
+            //TODO: fix this
+            //The instance of entity type cannot be tracked because another instance with the same key value for { 'Id'} is already being tracked
+
+            //var userFromDb = await _userManager.GetUserAsync(this.User);
+            //if (commentToUpdate.CommentedById != userFromDb.Id)
+            //    return Unauthorized();
+
+            commentToUpdate.Content = commentForUpdateDto.Content;
+
+            _repository.Comment.UpdateComment(commentToUpdate);
             await _repository.SaveAsync();
 
             return NoContent();
