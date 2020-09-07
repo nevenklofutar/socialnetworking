@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Web.Api.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200826205103_AddedPhotos")]
+    partial class AddedPhotos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,9 +93,6 @@ namespace Web.Api.Migrations
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PostId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PublicId")
                         .HasColumnType("nvarchar(max)");
 
@@ -104,8 +103,6 @@ namespace Web.Api.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
@@ -242,22 +239,22 @@ namespace Web.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1f5c7200-144e-4a05-8337-1c7f6d5fb11d",
-                            ConcurrencyStamp = "da59452b-3720-4cac-9750-f96f8f6696c2",
+                            Id = "ec509101-8d30-4291-8235-48bf13c3fe83",
+                            ConcurrencyStamp = "fc15405a-9aa8-4048-bd77-72461493baa3",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "93d913ba-80fc-4071-bf02-30fb6cb400ab",
-                            ConcurrencyStamp = "99e875e2-89f4-407e-886a-270a799bfce6",
+                            Id = "92fe95cb-cdfb-467b-9384-675785fbdce6",
+                            ConcurrencyStamp = "f331ab35-2900-42f5-8c91-f4f5fdd94213",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "6d2c0bb5-2278-42b3-bed3-1d1956660c03",
-                            ConcurrencyStamp = "53df3bd1-c0ea-4f84-b9ba-4fb4290c5971",
+                            Id = "a8b0c528-2dc7-463a-9f31-287a22a7760e",
+                            ConcurrencyStamp = "e9cbc66a-3d00-4101-a24a-73c9075d87a5",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -395,12 +392,8 @@ namespace Web.Api.Migrations
 
             modelBuilder.Entity("Entities.Models.Photo", b =>
                 {
-                    b.HasOne("Entities.Models.Post", "Post")
-                        .WithMany("Photos")
-                        .HasForeignKey("PostId");
-
                     b.HasOne("Entities.Models.User", "User")
-                        .WithMany("Photos")
+                        .WithMany()
                         .HasForeignKey("UserId");
                 });
 

@@ -11,6 +11,7 @@ namespace Contracts
         ILikeRepository Like { get; }
         ICommentRepository Comment { get; }
         IUserRepository User { get; }
+        IPhotoRepository Photo { get; }
 
         Task SaveAsync();
     }

@@ -101,6 +101,15 @@ namespace Web.Api.Extensions
             services.AddSingleton(emailConfig);
         }
 
+        public static void ConfigureCloudinary(this IServiceCollection services, IConfiguration configuration) {
+            var config = new CloudinarySettings() {
+                CloudName = Environment.GetEnvironmentVariable("SN_CLOUDINARY_CLOUDNAME"),
+                ApiKey = Environment.GetEnvironmentVariable("SN_CLOUDINARY_APIKEY"),
+                ApiSecret = Environment.GetEnvironmentVariable("SN_CLOUDINARY_APISECRET")
+            };
+            services.AddSingleton(config);
+        }
+
         public static void ConfigureFrontend(this IServiceCollection services, IConfiguration configuration) {
             var frontendConfiguration = new FrontendConfiguration() {
                 AuthenticationControllerName = Environment.GetEnvironmentVariable("SN_FRONTENDSETTINGS_AUTHCONTROLLERNAME"),

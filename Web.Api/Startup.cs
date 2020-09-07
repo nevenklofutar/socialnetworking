@@ -50,6 +50,7 @@ namespace Web.Api
 
             services.ConfigureEmailService(Configuration);
             services.ConfigureFrontend(Configuration);
+            services.ConfigureCloudinary(Configuration);
 
             services.AddControllers(config =>
             {

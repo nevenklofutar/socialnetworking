@@ -13,6 +13,7 @@ namespace Repository
         private IPostRepository _postRepository;
         private ILikeRepository _likeRepository;
         private ICommentRepository _commentRepository;
+        private IPhotoRepository _photoRepository;
         private IUserRepository _userRepository;
 
         public RepositoryManager(RepositoryContext repositoryContext)
@@ -59,6 +60,15 @@ namespace Repository
                     _userRepository = new UserRepository(_repositoryContext);
 
                 return _userRepository;
+            }
+        }
+
+        public IPhotoRepository Photo {
+            get {
+                if (_photoRepository == null)
+                    _photoRepository = new PhotoRepository(_repositoryContext);
+
+                return _photoRepository;
             }
         }
 
