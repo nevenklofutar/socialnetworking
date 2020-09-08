@@ -58,7 +58,17 @@ namespace Web.Api.Controllers {
 
         }
 
-        [HttpPost]
+        [HttpPost("filecollection")]
+        public IActionResult AddPhotosForUserTest([FromForm] IFormFileCollection files) {
+            files = Request.Form.Files;
+
+            if (files == null || files.Count == 0)
+                return BadRequest("No images sent.");
+
+            return Ok();
+        }
+
+        [HttpPost("base64strings")]
         public async Task<IActionResult> AddPhotosForUser([FromBody] PhotosForCreationDto input) {
 
             if (input == null || input.Photos == null || input.Photos.Count == 0)
@@ -78,7 +88,7 @@ namespace Web.Api.Controllers {
                     using (var stream = new MemoryStream(bytes)) {
                         var uploadParams = new ImageUploadParams() {
                             File = new FileDescription(photoForCreationDto.PhotoName, stream),
-                            Folder = "KlofBook",
+                            Folder = "KlofBook/user_" + userFromDb.Id,
                             Transformation = new Transformation().Width(600).Height(600)
                             // Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
                         };
