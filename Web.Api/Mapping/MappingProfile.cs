@@ -31,6 +31,8 @@ namespace Web.Api.Mapping
 
             CreateMap<PhotoForCreationDto, Photo>();
 
+            CreateMap<Photo, PhotoDto>();
+
         }
     }
 }

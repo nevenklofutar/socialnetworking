@@ -44,6 +44,7 @@ namespace Web.Api.Controllers
 
             //Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(posts.MetaData));
 
+            // TODO: fix this problem with CurrentUserLiked inside Likes, so you can use automapper
             //var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
             var postsDto = new List<PostDto>();
             var userFromDb = await _userManager.GetUserAsync(this.User);
@@ -56,7 +57,8 @@ namespace Web.Api.Controllers
                     Likes = new LikeDto() {
                         LikesCount = post.Likes.Count,
                         CurrentUserLiked = post.Likes.Any(l => l.LikerId == userFromDb.Id)
-                    }
+                    },
+                    Photos = _mapper.Map<IEnumerable<PhotoDto>>(post.Photos)
                 };
 
                 IEnumerable<CommentDto> commentsDto = _mapper.Map<IEnumerable<CommentDto>>(post.Comments);

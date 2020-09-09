@@ -12,5 +12,6 @@ namespace Entities.DTOs
         public string CreatedById { get; set; }
         public LikeDto Likes { get; set; }
         public IEnumerable<CommentDto> Comments { get; set; }
+        public IEnumerable<PhotoDto> Photos { get; set; }
     }
 }

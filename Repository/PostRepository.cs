@@ -26,6 +26,7 @@ namespace Repository
                 .Include(p => p.Likes)
                 .Include(p => p.Comments)
                 .ThenInclude(c => c.CommentedBy)
+                .Include(c => c.Photos)
                 .ToListAsync();
         }
 
