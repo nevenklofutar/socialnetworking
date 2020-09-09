@@ -65,6 +65,9 @@ namespace Web.Api.Controllers {
             if (files == null || files.Count == 0)
                 return BadRequest("No images sent.");
 
+            if (files.Count > 5)
+                return BadRequest("Max 5 images allowed.");
+
             return Ok();
         }
 
@@ -73,6 +76,9 @@ namespace Web.Api.Controllers {
 
             if (input == null || input.Photos == null || input.Photos.Count == 0)
                 return BadRequest("No images sent.");
+
+            if (input.Photos.Count > 5)
+                return BadRequest("Max 5 images allowed.");
 
             var userFromDb = await _userManager.GetUserAsync(this.User);
 
