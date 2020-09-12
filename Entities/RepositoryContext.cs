@@ -20,6 +20,38 @@ namespace Entities
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Post>()
+                .HasOne(p => p.CreatedBy)
+                .WithMany(u => u.Posts)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Photo>()
+                .HasOne(p => p.Post)
+                .WithMany(x => x.Photos)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Photo>()
+                .HasOne(p => p.User)
+                .WithMany(u => u.Photos)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Like>()
+                .HasOne(l => l.Liker)
+                .WithMany(u => u.Likes)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Like>()
+                .HasOne(l => l.Post)
+                .WithMany(p => p.Likes)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.CommentedBy)
+                .WithMany(u => u.Comments)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Post)
+                .WithMany(p => p.Comments)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.ApplyConfiguration(new PostConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
