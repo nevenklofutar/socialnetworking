@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Contracts;
+using Entities.Configuration;
 using Entities.DTOs;
 using Entities.Models;
 using Entities.RequestFeatures;
@@ -29,13 +32,25 @@ namespace Web.Api.Controllers
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
+        private Cloudinary _cloudinary;
+        private readonly CloudinarySettings _cloudinarySettings;
 
-        public PostsController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper, UserManager<User> userManager)
+        public PostsController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper, 
+            UserManager<User> userManager, CloudinarySettings cloudinarySettings)
         {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
             _userManager = userManager;
+            _cloudinarySettings = cloudinarySettings;
+
+            Account acc = new Account(
+                _cloudinarySettings.CloudName,
+                _cloudinarySettings.ApiKey,
+                _cloudinarySettings.ApiSecret
+            );
+
+            _cloudinary = new Cloudinary(acc);
         }
 
         [HttpPost("user")]
@@ -92,6 +107,20 @@ namespace Web.Api.Controllers
 
             if (postToDelete == null)
                 return BadRequest();
+
+            var commentsToDelete = await _repository.Comment.GetCommentsForPostAsync(postId);
+            var photosToDelete = await _repository.Photo.GetPhotosForPostAsync(postId);
+            var likesToDelete = await _repository.Like.GetLikesForPostAsync(postId);
+
+            // delete cloudinary images
+            foreach (var photo in photosToDelete) { 
+                var deleteParams = new DeletionParams(photo.PublicId);
+                var deleteResult = _cloudinary.Destroy(deleteParams);
+            }
+
+            _repository.Comment.DeletePostComments(commentsToDelete);
+            _repository.Like.DeletePostLikes(likesToDelete);
+            _repository.Photo.DeletePostPhotos(photosToDelete);
 
             _repository.Post.DeletePost(postToDelete);
             await _repository.SaveAsync();

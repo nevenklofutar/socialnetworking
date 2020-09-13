@@ -33,5 +33,8 @@ namespace Repository
                 Delete(like);
         }
 
+        public void DeletePostLikes(IEnumerable<Like> likes) =>
+            DeleteRange(likes);
+
     }
 }

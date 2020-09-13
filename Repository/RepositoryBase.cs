@@ -41,5 +41,8 @@ namespace Repository
         public void Delete(T entity) =>
             RepositoryContext.Set<T>().Remove(entity);
 
+        public void DeleteRange(IEnumerable<T> entities) =>
+            RepositoryContext.Set<T>().RemoveRange(entities);
+
     }
 }

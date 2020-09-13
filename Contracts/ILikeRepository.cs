@@ -9,6 +9,7 @@ namespace Contracts
     public interface ILikeRepository
     {
         public Task<IEnumerable<Like>> GetLikesForPostAsync(int postId);
+        public void DeletePostLikes(IEnumerable<Like> likes);
         public Task ProcessLikeAsync(int postId, string userId);
     }
 }

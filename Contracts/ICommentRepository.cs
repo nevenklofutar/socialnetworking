@@ -13,6 +13,7 @@ namespace Contracts
 
         public void CreateComment(Comment comment);
         public void DeleteComment(Comment comment);
+        public void DeletePostComments(IEnumerable<Comment> comments);
         public void UpdateComment(Comment comment);
     }
 }

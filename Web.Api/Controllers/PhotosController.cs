@@ -95,7 +95,7 @@ namespace Web.Api.Controllers {
                         var uploadParams = new ImageUploadParams() {
                             File = new FileDescription(photoForCreationDto.PhotoName, stream),
                             Folder = "KlofBook/user_" + userFromDb.Id,
-                            Transformation = new Transformation().Width(600).Height(600)
+                            //Transformation = new Transformation().Width(600).Height(600)
                             // Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
                         };
 

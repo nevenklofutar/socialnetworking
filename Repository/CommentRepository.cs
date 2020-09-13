@@ -38,6 +38,9 @@ namespace Repository
         public void DeleteComment(Comment comment) =>
             Delete(comment);
 
+        public void DeletePostComments(IEnumerable<Comment> comments) =>
+            DeleteRange(comments);
+
         public void UpdateComment(Comment comment) =>
             Update(comment);
 
